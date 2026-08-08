@@ -1,19 +1,24 @@
-import {Request, Response} from "express";
-import { handleCreateUser } from "../services/userServices";
+import { Request, Response } from "express";
+import { handleCreateUser, getAllUsers } from "../services/userServices";
 
-const getHomePage = (req: Request, res: Response) => {
-  return res.render("home");
-}
+const getHomePage = async (req: Request, res: Response) => {
+  //get user
+  const users = await getAllUsers();
+  return res.render("home", { users: users });
+};
 const getCreateUserPage = (req: Request, res: Response) => {
   return res.render("createUser");
-}
+};
 
-const postCreateUser = (req: Request, res: Response) => {
-  // console.log("Data from form:", req.body);
+const postCreateUser = async (req: Request, res: Response) => {
   const { name, email, address } = req.body;
-  //handle create user logic here
-  handleCreateUser(name, email, address);
-  return res.redirect("/");
+  try {
+    await handleCreateUser(name, email, address);
+    return res.redirect("/");
+  } catch (e) {
+    console.error("postCreateUser error:", e);
+    return res.status(500).send("Lỗi khi tạo người dùng. Vui lòng thử lại.");
+  }
 };
 
 export { getHomePage, getCreateUserPage, postCreateUser };
