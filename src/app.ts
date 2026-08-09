@@ -1,6 +1,6 @@
 import express from "express";
 import "dotenv/config";
-import wedRouter from "./routes/wed";
+import wedRouter from "routes/wed";
 const app = express();
 const port = process.env.PORT;
 
