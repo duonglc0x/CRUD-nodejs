@@ -41,8 +41,12 @@
             <td><%= user.address %></td>
             <td>
               <div class="d-flex gap-5">
-                <a href="/edit-user/<%= user.id %>" class="btn btn-primary">Edit</a>
-                <a href="/delete-user/<%= user.id %>" class="btn btn-danger">Delete</a>
+                <form action="/handle-view-user/<%= user.id %>" method="GET">
+                  <button type="submit" class="btn btn-success">View</button>
+                </form>
+                <form action="/handle-delete-user/<%= user.id %>" method="POST">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
               </div>
             </td>
           </tr>

@@ -21,7 +21,7 @@ const handleCreateUser = async (
 const getAllUsers = async () => {
   const connection = await getConnection();
   try {
-    const [results] = await connection.execute("SELECT * FROM users");
+    const [results,fields] = await connection.execute("SELECT * FROM users");
     return results;
   } catch (e) {
     console.error("Error fetching users:", e);
@@ -31,4 +31,43 @@ const getAllUsers = async () => {
   }
 };
 
-export { handleCreateUser, getAllUsers };
+const handleDeleteUser = async (id: string) => {
+  const connection = await getConnection();
+  try {
+    const sql = "DELETE FROM `users` WHERE id = ?";
+    const [results,fields] = await connection.execute(sql, [id]);
+    return results;
+  } catch (e) {
+    console.error("Error deleting user:", e);
+    throw e; // re-throw để controller biết có lỗi
+  } finally {
+    await connection.end(); // luôn đóng connection
+  }
+};
+const getUserById = async (id: string) => {
+  const connection = await getConnection();
+  try {
+    const sql = "SELECT * FROM `users` WHERE id = ?";
+    const [results,fields] = await connection.execute(sql, [id]);
+    return results;
+  } catch (e) {
+    console.error("Error fetching user:", e);
+    throw e;
+  } finally {
+    await connection.end();
+  }
+};
+const handleUpdateUser = async (id: string, name: string, email: string, address: string) => {
+  const connection = await getConnection();
+  try {
+    const sql = "UPDATE `users` SET name = ?, email = ?, address = ? WHERE id = ?";
+    const values = [name, email, address, id];
+    await connection.execute(sql, values);
+  } catch (e) {
+    console.error("Error updating user:", e);
+    throw e; // re-throw để controller biết có lỗi
+  } finally {
+    await connection.end(); // luôn đóng connection
+  }
+};
+export { handleCreateUser, getAllUsers, handleDeleteUser, getUserById, handleUpdateUser };
