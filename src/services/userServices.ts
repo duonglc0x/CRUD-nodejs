@@ -7,7 +7,7 @@ const handleCreateUser = async (
 ) => {
   const connection = await getConnection();
   try {
-    const sql = "INSERT INTO `users`(`name`, `email`, `address`) VALUES (?, ?, ?)";
+    const sql = "INSERT INTO `users`(name, email, address) VALUES (?, ?, ?)";
     const values = [name, email, address];
     await connection.execute(sql, values);
   } catch (e) {
