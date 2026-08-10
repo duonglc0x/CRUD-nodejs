@@ -12,15 +12,15 @@
         <form action="/handle-update-user/<%= userId %>" method="POST">
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input name="name" type="text" class="form-control" placeholder="John Doe" value="<%= user[0].name %>" />
+                <input name="name" type="text" class="form-control" placeholder="John Doe" value="<%= user.name %>" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input name="email" type="email" class="form-control" placeholder="name@example.com" value="<%= user[0].email %>" />
+                <input name="email" type="email" class="form-control" placeholder="name@example.com" value="<%= user.email %>" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Address</label>
-                <textarea name="address" class="form-control" rows="1" placeholder="Enter address"><%= user[0].address %></textarea>
+                <textarea name="address" class="form-control" rows="1" placeholder="Enter address"><%= user.address %></textarea>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Update</button>

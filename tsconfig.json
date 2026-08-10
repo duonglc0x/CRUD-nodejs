@@ -15,6 +15,7 @@
       "models/*": ["./src/models/*"],
       "routes/*": ["./src/routes/*"],
       "services/*": ["./src/services/*"],
+      "prisma/*": ["./src/prisma/*"]
     }
   }
 }

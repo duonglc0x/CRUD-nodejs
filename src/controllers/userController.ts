@@ -13,7 +13,7 @@ const getCreateUserPage = (req: Request, res: Response) => {
 const postCreateUser = async (req: Request, res: Response) => {
   const { name, email, address } = req.body;
   try {
-    await handleCreateUser(name, email, address);
+    const user = await handleCreateUser(name, email, address);
     return res.redirect("/");
   } catch (e) {
     console.error("postCreateUser error:", e);
@@ -21,9 +21,9 @@ const postCreateUser = async (req: Request, res: Response) => {
   }
 };
 const postDeleteUser = async (req: Request<{ id: string }>, res: Response) => {
-  const userId = req.params.id;
+  const userId = Number(req.params.id);
   try {
-    await handleDeleteUser(userId);
+    const userDeleted = await handleDeleteUser(userId);
     return res.redirect("/");
   } catch (e) {
     console.error("Error deleting user:", e);
@@ -31,19 +31,18 @@ const postDeleteUser = async (req: Request<{ id: string }>, res: Response) => {
   }
 };
 
-const getViewUserPage = async (req: Request<{ id: string }>, res: Response) => {
-  const userId = req.params.id;
-  //get user detail from database by userId
+const getViewUserPage = async (req: Request<{ id: String }>, res: Response) => {
+  const userId = Number(req.params.id);
   const user = await getUserById(userId);
   res.render("viewUser", { userId: userId, user: user });
 }
 
 const postUpdateUser = async (req: Request<{ id: string }>, res: Response) => {
-  const userId = req.params.id;
+  const userId = Number(req.params.id);
   const { name, email, address } = req.body;
   try {
     // Implementation for updating user
-    await handleUpdateUser(userId, name, email, address);
+    const user = await handleUpdateUser(userId, name, email, address);
     return res.redirect("/");
   } catch (e) {
     console.error("Error updating user:", e);

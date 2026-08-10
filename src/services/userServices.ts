@@ -1,73 +1,46 @@
 import getConnection from "config/database";
-
+import { prisma } from "config/client";
 const handleCreateUser = async (
   name: string,
   email: string,
   address: string,
 ) => {
-  const connection = await getConnection();
-  try {
-    const sql = "INSERT INTO `users`(name, email, address) VALUES (?, ?, ?)";
-    const values = [name, email, address];
-    await connection.execute(sql, values);
-  } catch (e) {
-    console.error("Error creating user:", e);
-    throw e; // re-throw để controller biết có lỗi
-  } finally {
-    await connection.end(); // luôn đóng connection
-  }
+  const user = await prisma.user.create({
+    data: {
+      name: name,
+      email: email,
+      address: address,
+    }
+  });
+  return user;
 };
 
 const getAllUsers = async () => {
-  const connection = await getConnection();
-  try {
-    const [results,fields] = await connection.execute("SELECT * FROM users");
-    return results;
-  } catch (e) {
-    console.error("Error fetching users:", e);
-    return [];
-  } finally {
-    await connection.end(); // luôn đóng connection
-  }
+  const users = await prisma.user.findMany();
+  return users;
 };
 
-const handleDeleteUser = async (id: string) => {
-  const connection = await getConnection();
-  try {
-    const sql = "DELETE FROM `users` WHERE id = ?";
-    const [results,fields] = await connection.execute(sql, [id]);
-    return results;
-  } catch (e) {
-    console.error("Error deleting user:", e);
-    throw e; // re-throw để controller biết có lỗi
-  } finally {
-    await connection.end(); // luôn đóng connection
-  }
+const handleDeleteUser = async (id: number) => {
+  const userDeleted = await prisma.user.delete({
+    where: { id: id },
+  });
+  return userDeleted;
 };
-const getUserById = async (id: string) => {
-  const connection = await getConnection();
-  try {
-    const sql = "SELECT * FROM `users` WHERE id = ?";
-    const [results,fields] = await connection.execute(sql, [id]);
-    return results;
-  } catch (e) {
-    console.error("Error fetching user:", e);
-    throw e;
-  } finally {
-    await connection.end();
-  }
+const getUserById = async (id: number) => {
+  const user = await prisma.user.findUnique({
+    where: { id: id },
+  });
+  return user;
 };
-const handleUpdateUser = async (id: string, name: string, email: string, address: string) => {
-  const connection = await getConnection();
-  try {
-    const sql = "UPDATE `users` SET name = ?, email = ?, address = ? WHERE id = ?";
-    const values = [name, email, address, id];
-    await connection.execute(sql, values);
-  } catch (e) {
-    console.error("Error updating user:", e);
-    throw e; // re-throw để controller biết có lỗi
-  } finally {
-    await connection.end(); // luôn đóng connection
-  }
+const handleUpdateUser = async (id: number, name: string, email: string, address: string) => {
+  const userUpdated = await prisma.user.update({
+    where: { id: id },
+    data: {
+      name: name,
+      email: email,
+      address: address
+    }
+  });
+  return userUpdated;
 };
 export { handleCreateUser, getAllUsers, handleDeleteUser, getUserById, handleUpdateUser };
