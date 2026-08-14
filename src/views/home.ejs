@@ -27,7 +27,7 @@
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Email</th>
+            <th>Username</th>
             <th>Address</th>
             <th>Actions</th>
           </tr>
@@ -36,8 +36,8 @@
           <% users.forEach(user => { %>
           <tr>
             <td><%= user.id %></td>
-            <td><%= user.name %></td>
-            <td><%= user.email %></td>
+            <td><%= user.fullName %></td>
+            <td><%= user.username %></td>
             <td><%= user.address %></td>
             <td>
               <div class="d-flex gap-5">

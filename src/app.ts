@@ -1,6 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import wedRouter from "routes/wed";
+import initDatabase from "config/seed";
 const app = express();
 const port = process.env.PORT;
 
@@ -14,6 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //configure routes
 wedRouter(app);
+//seeding data
+initDatabase();
 app.listen(port, () => {
   console.log(`http://localhost:${process.env.PORT}`);
 });
