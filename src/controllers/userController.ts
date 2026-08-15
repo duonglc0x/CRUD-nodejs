@@ -1,13 +1,21 @@
 import { Request, Response } from "express";
-import { handleCreateUser, getAllUsers, handleDeleteUser, getUserById, handleUpdateUser } from "services/userServices";
+import {
+  handleCreateUser,
+  getAllUsers,
+  handleDeleteUser,
+  getUserById,
+  handleUpdateUser,
+  getAllRole,
+} from "services/userServices";
 
 const getHomePage = async (req: Request, res: Response) => {
   //get user
   const users = await getAllUsers();
   return res.render("home", { users: users });
 };
-const getCreateUserPage = (req: Request, res: Response) => {
-  return res.render("./admin/user/create");
+const getCreateUserPage = async (req: Request, res: Response) => {
+  const role = await getAllRole();
+  return res.render("./admin/user/create", { role: role });
 };
 
 const postCreateUser = async (req: Request, res: Response) => {
@@ -35,7 +43,7 @@ const getViewUserPage = async (req: Request<{ id: String }>, res: Response) => {
   const userId = Number(req.params.id);
   const user = await getUserById(userId);
   res.render("viewUser", { userId: userId, user: user });
-}
+};
 
 const postUpdateUser = async (req: Request<{ id: string }>, res: Response) => {
   const userId = Number(req.params.id);
@@ -49,4 +57,11 @@ const postUpdateUser = async (req: Request<{ id: string }>, res: Response) => {
   }
 };
 
-export { getHomePage, getCreateUserPage, postCreateUser, postDeleteUser, getViewUserPage, postUpdateUser };
+export {
+  getHomePage,
+  getCreateUserPage,
+  postCreateUser,
+  postDeleteUser,
+  getViewUserPage,
+  postUpdateUser,
+};
