@@ -19,14 +19,8 @@ const getCreateUserPage = async (req: Request, res: Response) => {
 };
 
 const postCreateUser = async (req: Request, res: Response) => {
-  const { name, email, address } = req.body;
-  try {
-    const user = await handleCreateUser(name, email, address);
-    return res.redirect("/");
-  } catch (e) {
-    console.error("postCreateUser error:", e);
-    return res.status(500).send("Lỗi khi tạo người dùng. Vui lòng thử lại.");
-  }
+  const { fullName, userName,  phone, role, address,} = req.body;
+  return res.redirect("/");
 };
 const postDeleteUser = async (req: Request<{ id: string }>, res: Response) => {
   const userId = Number(req.params.id);

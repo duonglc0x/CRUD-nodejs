@@ -18,7 +18,7 @@ const router = express.Router();
 const wedRouter = (app: Express) => {
   router.get("/", getHomePage);
   router.get("/create-user", getCreateUserPage);
-  router.post("/handle-create-user", postCreateUser);
+
   router.post("/handle-delete-user/:id", postDeleteUser);
   router.get("/handle-view-user/:id", getViewUserPage);
   router.post("/handle-update-user/:id", postUpdateUser);
@@ -29,6 +29,7 @@ const wedRouter = (app: Express) => {
   router.get("/admin/order", getAdminOderPage);
   router.get("/admin/product", getAdminProductPage);
   router.get("/admin/create-user", getCreateUserPage);
+  router.post("/admin/handle-create-user", postCreateUser);
   app.use("/", router);
 };
 
