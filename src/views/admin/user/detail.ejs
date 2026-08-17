@@ -9,7 +9,7 @@
     />
     <meta name="description" content="Duong - Dự án laptopshop" />
     <meta name="author" content="Duong" />
-    <title>Manage User</title>
+    <title>Detail User</title>
     <link href="/admin/css/styles.css" rel="stylesheet" />
     <script
       src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
@@ -33,8 +33,8 @@
             </ol>
             <div>
               <div style="width: 50%; margin: auto">
-                <h3 style="padding: 20px 0">Create User</h3>
-                <form action="/admin/handle-create-user" method="POST" enctype="multipart/form-data">
+                <h3 style="padding: 20px 0">View detail</h3>
+                <form action="/admin/update-user/<%= userId %>" method="POST" enctype="multipart/form-data">
                   <div class="mb-3">
                     <label class="form-label">Full Name</label>
                     <input
@@ -42,27 +42,32 @@
                       type="text"
                       class="form-control"
                       placeholder="John Doe"
+                      value="<%=user.fullName%>"
                     />
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Email</label>
                     <input
+                      disabled
                       name="userName"
                       type="email"
                       class="form-control"
                       placeholder="name@example.com"
+                      value="<%=user.username%>"
                     />
                   </div>
                   <div class="row">
                     <div class="mb-3 col-6">
                       <label class="form-label">Phone</label>
-                      <input type="text" class="form-control" name="phone"/>
+                      <input type="text" class="form-control" name="phone" value="<%=user.phone%>"/>
                     </div>
+                    <!--  -->
                     <div class="mb-3 col-6">
                       <label class="form-label">Role</label>
                       <select name ="role" class="form-select">
                         <% roles.forEach((role) => {%>
-                          <option value="<%- role.id %>">
+                          <option value="<%- role.id %>" 
+                            <%= role.id === user.roleId ? 'selected' : '' %>>
                             <%- role.name %>
                           </option>
                         <%})%>
@@ -73,7 +78,7 @@
                     <label for="formFile" class="form-label">Avatar</label>
                     <input name="avatar" class="form-control" type="file" id="avatarFile" accept=".png, .jpg, .jpeg">
                   </div>
-                  <img style="max-height: 250px; display: none;" alt="avatar preview" id="avatarPreview" />
+                  <img style="max-height: 250px; display: block;" alt="avatar preview" id="avatarPreview"  src="/images/<%=user.avatar%>"/>
                   <div class="mb-3">
                     <label class="form-label">Address</label>
                     <textarea
@@ -81,7 +86,7 @@
                       class="form-control"
                       rows="1"
                       placeholder="Enter address"
-                    ></textarea>
+                    ><%=user.address%></textarea>
                   </div>
                   <div class="mb-3">
                     <button type="submit" class="btn btn-primary">

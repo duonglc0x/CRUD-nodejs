@@ -20,20 +20,24 @@ const wedRouter = (app: Express) => {
   router.get("/", getHomePage);
   router.get("/create-user", getCreateUserPage);
 
-  router.post("/handle-delete-user/:id", postDeleteUser);
-  router.get("/handle-view-user/:id", getViewUserPage);
-  router.post("/handle-update-user/:id", postUpdateUser);
-
   //admin
   router.get("/admin", getDashBoardPage);
   router.get("/admin/user", getAdminUserPage);
   router.get("/admin/order", getAdminOderPage);
   router.get("/admin/product", getAdminProductPage);
   router.get("/admin/create-user", getCreateUserPage);
-  router.post("/admin/handle-create-user",fileUploadMiddleware("avatar") ,postCreateUser);
-  // router.post("/admin/handle-create-user", upload.single('avatar'),(req, res) =>{
-  //   res.send("ok")
-  // });
+  router.post(
+    "/admin/handle-create-user",
+    fileUploadMiddleware("avatar"),
+    postCreateUser,
+  );
+  router.post("/admin/delete-user/:id", postDeleteUser);
+  router.get("/admin/view-user/:id", getViewUserPage);
+  router.post(
+    "/admin/update-user/:id",
+    fileUploadMiddleware("avatar"),
+    postUpdateUser,
+  );
   app.use("/", router);
 };
 

@@ -34,8 +34,8 @@ const getAllUsers = async () => {
   return users;
 };
 const getAllRole = async () => {
-  const role = await prisma.role.findMany();
-  return role;
+  const roles = await prisma.role.findMany();
+  return roles;
 };
 const handleDeleteUser = async (id: number) => {
   const userDeleted = await prisma.user.delete({
@@ -52,17 +52,19 @@ const getUserById = async (id: number) => {
 const handleUpdateUser = async (
   id: number,
   name: string,
-  email: string,
+  role: string,
   address: string,
+  phone: string,
+  avatar: string
 ) => {
   const userUpdated = await prisma.user.update({
     where: { id: id },
     data: {
       fullName: name,
-      username: email,
+      roleId: +role,
       address: address,
-      password: "...",
-      accountType: "",
+      phone: phone,
+      avatar: avatar
     },
   });
   return userUpdated;

@@ -61,10 +61,10 @@
                   <td><%= user.address %></td>
                   <td>
                     <div class="d-flex gap-5">
-                      <form action="/handle-view-user/<%= user.id %>" method="GET">
+                      <form action="/admin/view-user/<%= user.id %>" method="GET">
                         <button type="submit" class="btn btn-success">View</button>
                       </form>
-                      <form action="/handle-delete-user/<%= user.id %>" method="POST">
+                      <form action="/admin/delete-user/<%= user.id %>" method="POST">
                         <button type="submit" class="btn btn-danger">Delete</button>
                       </form>
                     </div>
