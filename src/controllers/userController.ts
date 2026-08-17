@@ -20,7 +20,10 @@ const getCreateUserPage = async (req: Request, res: Response) => {
 
 const postCreateUser = async (req: Request, res: Response) => {
   const { fullName, userName,  phone, role, address,} = req.body;
-  return res.redirect("/");
+  const file = req.file;
+  const avatar  = file?.filename ?? "default-avatar.jpg";
+  await handleCreateUser(fullName,userName,address,phone,avatar,role);
+  return res.redirect("/admin/user");
 };
 const postDeleteUser = async (req: Request<{ id: string }>, res: Response) => {
   const userId = Number(req.params.id);

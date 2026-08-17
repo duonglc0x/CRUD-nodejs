@@ -1,18 +1,30 @@
-import getConnection from "config/database";
 import { prisma } from "config/client";
+import { ACCOUNT_TYPE } from "config/constant";
+import bcrypt from "bcrypt";
+const saltRounds = 10;
+const hashPassword = async (planText: string) =>{
+  return await bcrypt.hash("123456", saltRounds);
+}
 const handleCreateUser = async (
   name: string,
   email: string,
   address: string,
+  phone: string,
+  avatar: string,
+  role: string
 ) => {
+  const defaultPassword = await hashPassword('123456');
   const user = await prisma.user.create({
     data: {
       fullName: name,
       username: email,
       address: address,
-      password: "...",
-      accountType: "",
-    }
+      password: defaultPassword,
+      accountType: ACCOUNT_TYPE.SYSTEM,
+      phone: phone,
+      avatar: avatar,
+      roleId : +role
+    },
   });
   return user;
 };
@@ -37,7 +49,12 @@ const getUserById = async (id: number) => {
   });
   return user;
 };
-const handleUpdateUser = async (id: number, name: string, email: string, address: string) => {
+const handleUpdateUser = async (
+  id: number,
+  name: string,
+  email: string,
+  address: string,
+) => {
   const userUpdated = await prisma.user.update({
     where: { id: id },
     data: {
@@ -46,8 +63,16 @@ const handleUpdateUser = async (id: number, name: string, email: string, address
       address: address,
       password: "...",
       accountType: "",
-    }
+    },
   });
   return userUpdated;
 };
-export { handleCreateUser, getAllUsers, handleDeleteUser, getUserById, handleUpdateUser, getAllRole };
+export {
+  handleCreateUser,
+  getAllUsers,
+  handleDeleteUser,
+  getUserById,
+  handleUpdateUser,
+  getAllRole,
+  hashPassword
+};

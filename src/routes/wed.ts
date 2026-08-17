@@ -13,6 +13,7 @@ import {
   getAdminOderPage,
   getAdminProductPage,
 } from "controllers/admin/dashBoardController";
+import fileUploadMiddleware from "src/middleeware/multer";
 const router = express.Router();
 
 const wedRouter = (app: Express) => {
@@ -29,7 +30,10 @@ const wedRouter = (app: Express) => {
   router.get("/admin/order", getAdminOderPage);
   router.get("/admin/product", getAdminProductPage);
   router.get("/admin/create-user", getCreateUserPage);
-  router.post("/admin/handle-create-user", postCreateUser);
+  router.post("/admin/handle-create-user",fileUploadMiddleware("avatar") ,postCreateUser);
+  // router.post("/admin/handle-create-user", upload.single('avatar'),(req, res) =>{
+  //   res.send("ok")
+  // });
   app.use("/", router);
 };
 
