@@ -9,9 +9,7 @@ import {
 } from "services/userServices";
 
 const getHomePage = async (req: Request, res: Response) => {
-  //get user
-  const users = await getAllUsers();
-  return res.render("home", { users: users });
+  return res.render("client/home/show");
 };
 const getCreateUserPage = async (req: Request, res: Response) => {
   const roles = await getAllRole();

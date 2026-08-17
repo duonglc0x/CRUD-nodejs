@@ -18,7 +18,6 @@ const router = express.Router();
 
 const wedRouter = (app: Express) => {
   router.get("/", getHomePage);
-  router.get("/create-user", getCreateUserPage);
 
   //admin
   router.get("/admin", getDashBoardPage);
