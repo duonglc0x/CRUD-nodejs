@@ -13,11 +13,13 @@ import {
   getAdminOderPage,
   getAdminProductPage,
 } from "controllers/admin/dashBoardController";
+import { getProductPage } from "controllers/client/productController";
 import fileUploadMiddleware from "src/middleeware/multer";
 const router = express.Router();
 
 const wedRouter = (app: Express) => {
   router.get("/", getHomePage);
+  router.get("/Product/:id",getProductPage);
 
   //admin
   router.get("/admin", getDashBoardPage);
