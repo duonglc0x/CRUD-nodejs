@@ -27,56 +27,49 @@
             <h1 class="mt-4">Manage Users</h1>
             <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Users</li>
+              <li class="breadcrumb-item active"><a href="/admin/user">user</a></li>
             </ol>
-            <div>
-              <div style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin: 25px;"
-            >
-              <h5>List User</h5>
-              <div>
+
+            <div class="card mb-4">
+              <div class="card-header d-flex justify-content-between align-items-center py-3">
+                <h5 class="m-0">List Users</h5>
                 <a href="/admin/create-user" class="btn btn-warning">Create User</a>
               </div>
-          </div>
-            <hr />
-             <table class="table table-striped table-hover table-bordered" style="margin: 25px">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Username</th>
-                  <th>Address</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% users.forEach((user) => { %>
-                <tr>
-                  <td><%= user.id %></td>
-                  <td><%= user.fullName %></td>
-                  <td><%= user.username %></td>
-                  <td><%= user.address %></td>
-                  <td>
-                    <div class="d-flex gap-5">
-                      <form action="/admin/view-user/<%= user.id %>" method="GET">
-                        <button type="submit" class="btn btn-success">View</button>
-                      </form>
-                      <form action="/admin/delete-user/<%= user.id %>" method="POST">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                      </form>
-                    </div>
-                  </td>
-                </tr>
-                <% }); %>
-              </tbody>
-            </table>
+              <div class="card-body">
+                <table class="table table-striped table-hover table-bordered mb-0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Username</th>
+                      <th>Address</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% users.forEach((user) => { %>
+                    <tr>
+                      <td><%= user.id %></td>
+                      <td><%= user.fullName %></td>
+                      <td><%= user.username %></td>
+                      <td><%= user.address %></td>
+                      <td>
+                        <div class="d-flex gap-2">
+                          <a href="/admin/view-user/<%= user.id %>" class="btn btn-success btn-sm">View</a>
+                          <form action="/admin/delete-user/<%= user.id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </main>
-        <%- include('../layout/footer') %>
+        <%- include('../layout/footer'); %>
       </div>
     </div>
     <script

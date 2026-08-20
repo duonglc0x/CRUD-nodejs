@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="Duong - Dự án laptopshop" />
+    <meta name="description" content="Duong - Dự án LapTopShop" />
     <meta name="author" content="Duong" />
     <title>Manage Product</title>
     <link href="/admin/css/styles.css" rel="stylesheet" />
@@ -24,12 +24,33 @@
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage Users</h1>
+            <h1 class="mt-4">Manage Product</h1>
             <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Users</li>
+              <li class="breadcrumb-item active"><a href="/admin/product">Product</a></li>
             </ol>
-            <div>table user</div>
+            <div class="card mb-4">
+              <div class="card-header d-flex justify-content-between align-items-center py-3">
+                <h5 class="m-0">Table product</h5>
+                <a href="/admin/create-product" class="btn btn-warning">Create a product</a>
+              </div>
+              <div class="card-body">
+                <table class="table table-striped table-hover table-bordered mb-0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th>Factory</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </main>
         <%- include('../layout/footer') %>
